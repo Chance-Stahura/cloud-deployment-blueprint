@@ -26,8 +26,8 @@ jobs:
           go mod download
 
       
-      - build: Build
-        run: go build -o server ./cmd
+      - name: Build
+        run: go build -o server ./cmd/app.go
 
   #job 2
   docker-build:
