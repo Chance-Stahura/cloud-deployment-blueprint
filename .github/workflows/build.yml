@@ -7,6 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
+  #job 1
   build-and-test:
     runs-on: ubuntu-latest
 
@@ -14,36 +15,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Uncomment and customize one of these setup steps per project,
-      # or add your own.
-
-      # - name: Set up Node.js
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: "22"
-
-      # - name: Set up Python
-      #   uses: actions/setup-python@v5
-      #   with:
-      #     python-version: "3.12"
-
-      # - name: Set up .NET
-      #   uses: actions/setup-dotnet@v4
-      #   with:
-      #     dotnet-version: "9.0.x"
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.0"
+          cache: true
 
       - name: Install dependencies
         run: |
-          echo "TODO: Replace this with your install command"
-          # Examples:
-          # npm install
-          # pip install -r requirements.txt
-          # dotnet restore
+          go mod download
 
-      - name: Run tests
-        run: |
-          echo "TODO: Replace this with your test command"
-          # Examples:
-          # npm test
-          # pytest
-          # dotnet test
+      
+      - build: Build
+        run: go build -o server ./cmd
+
+  #job 2
+  docker-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t cloud-deployment:ci .
