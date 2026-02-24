@@ -32,5 +32,5 @@ func main() {
 
 	//start server on port 3000
 	//listen for incoming HTTP requests
-    log.Fatal(app.Listen(":3000"))
+    log.Fatal(app.Listen(":80"))
 }
