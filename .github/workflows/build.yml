@@ -51,6 +51,7 @@ jobs:
   #job 3
   liatrio-apprentice-actions:
     runs-on: ubuntu-latest
+    needs: docker-build
 
     steps:
       - uses: actions/checkout@v4
