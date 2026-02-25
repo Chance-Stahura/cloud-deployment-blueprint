@@ -35,13 +35,39 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      
       - name: Build Docker image
         run: docker build -t cloud-deployment:ci .
+
+      - name: Save image
+        run: docker save cloud-deployment:ci | gzip > image.tar.gz
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: image.tar.gz
 
   #job 3
   liatrio-apprentice-actions:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Download artifact
+        run: actions/download-artifact@v4
+        with:
+          name: docker-image
+      
+      - name: Load image
+        run: docker load < image.tar.gz
+      
+      - name: Run container
+        run: docker run -d -p 80:80 cloud-deployment:ci
+
+      - name: Wait for app to be ready
+        run: sleep 5
+
       - name: run tests
         uses: liatrio/github-actions/apprentice-action@master
