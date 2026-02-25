@@ -13,7 +13,7 @@ type message struct {
 }
 
 func serveMessage(c fiber.Ctx) error {
-	timestamp := time.Now().Unix()
+	timestamp := time.Now().UnixMilli()
 	m := message{
 		Message: "My name is Chance", 
 		Timestamp: timestamp,
