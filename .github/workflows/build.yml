@@ -37,3 +37,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build Docker image
         run: docker build -t cloud-deployment:ci .
+
+  #job 3
+  liatrio-apprentice-actions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: run tests
+        uses: liatrio/github-actions/apprentice-action@master
