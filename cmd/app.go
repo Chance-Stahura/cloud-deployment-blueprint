@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/json" 	//uses struct(message) to encode(marshal) and decode(unmarshal)
+	//"encoding/json" 	//uses struct(message) to encode(marshal) and decode(unmarshal)
 	"time"			//getting the current system time
 	"log"
 	"github.com/gofiber/fiber/v3"
@@ -13,14 +13,13 @@ type message struct {
 }
 
 func serveMessage(c fiber.Ctx) error {
+	timestamp := time.Now().Unix()
 	m := message{
 		Message: "My name is Chance", 
-		Timestamp: time.Now().Unix(),
+		Timestamp: timestamp,
 	}
 
-	c.Set("Content-Type", "application/json")
-	data, _ := json.MarshalIndent(m, "", "  ")
-	return c.SendString(string(data))
+	return c.JSON(m)
 }
 
 
