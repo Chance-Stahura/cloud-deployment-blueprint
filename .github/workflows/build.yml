@@ -71,4 +71,5 @@ jobs:
         run: sleep 5
 
       - name: run tests
-        uses: liatrio/github-actions/apprentice-action@master
+        #uses: liatrio/github-actions/apprentice-action@master
+        uses: liatrio/github-actions/apprentice-action@8d1edd61c1967483150893d301ca6334e7f0673c
