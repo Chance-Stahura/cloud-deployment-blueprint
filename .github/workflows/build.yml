@@ -40,7 +40,7 @@ jobs:
         run: docker build -t cloud-deployment:ci-${{ github.sha }} .
 
       - name: Save image
-        run: docker save cloud-deployment:ci | gzip > image.tar.gz
+        run: docker save cloud-deployment:ci-${{ github.sha }} | gzip > image.tar.gz
       
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -65,7 +65,7 @@ jobs:
         run: docker load < image.tar.gz
       
       - name: Run container
-        run: docker run -d -p 80:80 cloud-deployment:ci
+        run: docker run -d -p 80:80 cloud-deployment:ci-${{ github.sha }}
 
       - name: Wait for app to be ready
         run: sleep 5
