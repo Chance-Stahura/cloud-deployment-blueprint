@@ -64,7 +64,7 @@ jobs:
         run: docker load < image.tar.gz
 
       - name: Run container
-        run: docker run -d -p 80:80 ${{ secrets.USERNAME }}/apprenticeship-project:ci-${{ github.sha }}
+        run: docker run -d -p 80:80 -e PORT=80 ${{ secrets.USERNAME }}/apprenticeship-project:ci-${{ github.sha }}
 
       - name: Wait for app to be ready
         run: sleep 5
