@@ -1,7 +1,6 @@
 package main
 
 import (
-	//"encoding/json" 	//uses struct(message) to encode(marshal) and decode(unmarshal)
 	"time"			//getting the current system time
 	"log"
 	"os"
@@ -35,8 +34,4 @@ func main() {
 		port="80"
 	}
 	log.Fatal(app.Listen(":" + port))
-
-	//start server on port 3000
-	//listen for incoming HTTP requests
-    //log.Fatal(app.Listen(":80"))
 }
